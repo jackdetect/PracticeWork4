@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.regex.*;
 
 public class Main {
+
     // Исправление имени: "ИванИванов" -> "Иван Иванов"
     static String fixName(String raw) {
         if (raw == null || raw.isBlank()) return "";
@@ -32,6 +33,16 @@ public class Main {
         return String.format("+7 (%s) %s-%s-%s",
                 digits.substring(0, 3), digits.substring(3, 6),
                 digits.substring(6, 8), digits.substring(8, 10));
+    }
+
+    // Исправление email: @@ -> @, .. -> .
+    static String fixEmail(String raw) {
+        if (raw == null || raw.isBlank()) return "";
+        raw = raw.trim();
+        raw = raw.replaceAll("@{2,}", "@");
+        raw = raw.replaceAll("\\.{2,}", ".");
+        if (raw.matches("^[\\w.+-]+@[\\w-]+\\.[\\w.]{2,}$")) return raw;
+        return "";
     }
 
     public static void main(String[] args) throws IOException {
