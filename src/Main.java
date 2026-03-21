@@ -48,6 +48,28 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String inputFile  = "input.txt";
         String outputFile = "output.txt";
-        System.out.println("Программа запущена");
+
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(inputFile), "UTF-8"));
+        PrintWriter writer = new PrintWriter(
+                new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"));
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split("\\|", -1);
+            if (parts.length != 4) continue;
+            String name  = fixName(parts[0]);
+            String age   = fixAge(parts[1]);
+            String phone = fixPhone(parts[2]);
+            String email = fixEmail(parts[3]);
+            String result = name + "|" + age + "|" + phone + "|" + email;
+            writer.println(result);
+            System.out.println("Вход:  " + line);
+            System.out.println("Выход: " + result);
+            System.out.println();
+        }
+        reader.close();
+        writer.close();
+        System.out.println("Готово! Результат записан в " + outputFile);
     }
 }
