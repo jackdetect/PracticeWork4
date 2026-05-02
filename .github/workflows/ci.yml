@@ -1,4 +1,6 @@
 name: Java CI with Coverage
+name: Java CI
+
 
 on:
   push:
@@ -29,3 +31,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: target/site/jacoco/jacoco.xml
           format: jacoco
+
+      - name: Build with Maven
+        run: mvn compile
+
+      - name: Run tests
+        run: mvn test
